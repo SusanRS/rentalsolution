@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -89,6 +90,15 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+{{-- be an owner --}}
+                       {{--  <div class="form-group row">
+                            <div class="col-md-6">
+                                <label><input type="checkbox" value="">&nbsp;&nbsp;Register as a Owner</label>
+                            </div>
+                        </div>     --}}
+
+      
+
 {{-- button submit --}}
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

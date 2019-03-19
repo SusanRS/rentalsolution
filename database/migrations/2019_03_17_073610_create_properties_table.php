@@ -15,15 +15,17 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->unsignedinteger('user_id');
             $table->string('address');
             $table->biginteger('price');
-            $table->string('legal_docs');
+            $table->string('legal_docs')->nullable();
             $table->text('descriptions');
-            $table->boolean('isapproved');
-            $table->boolean('isavailable');
+            $table->boolean('isapproved')->default(0);
+            $table->boolean('isavailable')->default(0);;
             $table->string('property_type');
             $table->timestamps();
+
+            // $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade')
         });
     }
 

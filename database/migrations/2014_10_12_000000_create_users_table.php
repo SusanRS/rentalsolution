@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('contact');
             $table->string('address');
+            $table->string('profile')->default('default.png');
             $table->boolean('isadmin')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

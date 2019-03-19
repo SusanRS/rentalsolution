@@ -15,6 +15,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+// Route::get('/property', function () {
+//     return view('home');
+// });
+Route::get('profile','UserController@profile');
+Route::post('profile','UserController@updatepp');
+
+
+
+
+
+Route::get('/property','PropertiesController@index')->name('property.index');
+Route::get('/property/create','PropertiesController@create') -> name('property.create');
+
+Route::post('/property','PropertiesController@store')->name("property.store");
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('profile','UserController@profile');
+Route::post('profile','UserController@updatepp');
