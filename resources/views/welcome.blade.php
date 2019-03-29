@@ -1,105 +1,79 @@
-@extends('layouts.app')
-{{-- 
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/profile') }}">User</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Rental Solutions
-                </div>
-
-                <div class="links">
-                    <a href="">Post an Ad</a>
-                    <a href="">Host home</a>
-                    <a href="">rentals</a>
-                     <a href="">search home</a>
-                  
-                </div>
-            </div>
-        </div>
-    </body>
-</html> --}}
-
-@section('content')
-    <div class="container">
-        <h1>this is going to be my main page</h1>
-    </div>
-@endsection
+<option value = "">Select District</option>       
+                                        <option value = "Taplejung"@if(old('district')=='Taplejung'){{'selected'}} @endif>Taplejung</option>       
+                                        <option value = "Panchthar" @if(old('district')=='Panchthar'){{'selected'}} @endif>Panchthar</option>       
+                                        <option value = "Ilam"@if(old('district')=='Taplejung'){{'selected'}} @endif>Ilam</option>       
+                                        <option value = "Jhapa"@if(old('district')=='Taplejung'){{'selected'}} @endif>Jhapa</option>       
+                                        <option value = "Morang"@if(old('district')=='Taplejung'){{'selected'}} @endif>Morang</option>       
+                                        <option value = "Sunsari"@if(old('district')=='Taplejung'){{'selected'}} @endif>Sunsari</option>       
+                                        <option value = "Dhankutta"@if(old('district')=='Taplejung'){{'selected'}} @endif>Dhankutta</option>       
+                                        <option value = "Sankhuwasabha"@if(old('district')=='Taplejung'){{'selected'}} @endif>Sankhuwasabha</option>       
+                                        <option value = "Bhojpur"@if(old('district')=='Taplejung'){{'selected'}} @endif>Bhojpur</option>       
+                                        <option value = "Terhathum"@if(old('district')=='Taplejung'){{'selected'}} @endif>Terhathum</option>       
+                                        <option value = "Okhaldunga"@if(old('district')=='Taplejung'){{'selected'}} @endif>Okhaldunga</option>       
+                                        <option value = "Khotang"@if(old('district')=='Taplejung'){{'selected'}} @endif>Khotang</option>       
+                                        <option value = "Solukhumbu"@if(old('district')=='Taplejung'){{'selected'}} @endif>Solukhumbu</option>       
+                                        <option value = "Udaypur"@if(old('district')=='Taplejung'){{'selected'}} @endif>Udaypur</option>       
+                                        <option value = "Saptari">Saptari</option>       
+                                        <option value = "Siraha">Siraha</option>       
+                                        <option value = "Dhanusa">Dhanusa</option>       
+                                        <option value = "Mahottari">Mahottari</option>       
+                                        <option value = "Sarlahi">Sarlahi</option>       
+                                        <option value = "Sindhuli">Sindhuli</option>       
+                                        <option value = "Ramechhap">Ramechhap</option>       
+                                        <option value = "Dolkha">Dolkha</option>       
+                                        <option value = "Sindhupalchauk">Sindhupalchauk</option>       
+                                        <option value = "Kavreplanchauk">Kavreplanchauk</option>       
+                                        <option value = "Lalitpur">Lalitpur</option>       
+                                        <option value = "Bhaktapur">Bhaktapur</option>       
+                                        <option value = "Kathmandu">Kathmandu</option>       
+                                        <option value = "Nuwakot">Nuwakot</option>       
+                                        <option value = "Rasuwa">Rasuwa</option>       
+                                        <option value = "Dhading">Dhading</option>       
+                                        <option value = "Makwanpur">Makwanpur</option>       
+                                        <option value = "Rauthat">Rauthat</option>       
+                                        <option value = "Bara">Bara</option>       
+                                        <option value = "Parsa">Parsa</option>       
+                                        <option value = "Chitwan">Chitwan</option>       
+                                        <option value = "Gorkha">Gorkha</option>       
+                                        <option value = "Lamjung">Lamjung</option>       
+                                        <option value = "Tanahun">Tanahun</option>       
+                                        <option value = "Syangja">Syangja</option>       
+                                        <option value = "Kaski">Kaski</option>       
+                                        <option value = "Manag">Manag</option>       
+                                        <option value = "Mustang">Mustang</option>       
+                                        <option value = "Parwat">Parwat</option>       
+                                        <option value = "Myagdi">Myagdi</option>       
+                                        <option value = "Baglung">Baglung</option>       
+                                        <option value = "Gulmi">Gulmi</option>       
+                                        <option value = "Palpa">Palpa</option>       
+                                        <option value = "Nawalpur">Nawalpur</option>       
+                                        <option value = "Parasi">Parasi</option>       
+                                        <option value = "Rupandehi">Rupandehi</option>       
+                                        <option value = "Arghakhanchi">Arghakhanchi</option>       
+                                        <option value = "Kapilvastu">Kapilvastu</option>       
+                                        <option value = "Pyuthan">Pyuthan</option>       
+                                        <option value = "Rolpa">Rolpa</option>       
+                                        <option value = "Rukum_Purba">Rukum Purba</option>       
+                                        <option value = "Rukum_Paschim">Rukum Paschim</option>       
+                                        <option value = "Salyan">Salyan</option>       
+                                        <option value = "Dang">Dang</option>       
+                                        <option value = "Bardiya">Bardiya</option>       
+                                        <option value = "Surkhet">Surkhet</option>       
+                                        <option value = "Dailekh">Dailekh</option>       
+                                        <option value = "Banke">Banke</option>       
+                                        <option value = "Jajarkot">Jajarkot</option>       
+                                        <option value = "Dolpa">Dolpa</option>       
+                                        <option value = "Humla">Humla</option>       
+                                        <option value = "Kalikot">Kalikot</option>       
+                                        <option value = "Mugu">Mugu</option>       
+                                        <option value = "Jumla">Jumla</option>       
+                                        <option value = "Bajura">Bajura</option>       
+                                        <option value = "Bajhang">Bajhang</option>       
+                                        <option value = "Achham">Achham</option>       
+                                        <option value = "Doti">Doti</option>       
+                                        <option value = "Kailali">Kailali</option>       
+                                        <option value = "Kanchanpur">Kanchanpur</option>       
+                                        <option value = "Dadeldhura">Dadeldhura</option>       
+                                        <option value = "Baitadi">Baitadi</option>       
+                                        <option value = "Darchula">Darchula</option>       
+                 

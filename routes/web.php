@@ -11,32 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/admin/admindash', ['middleware' => 'admin' , function () {
+    return view('admin.admindash');
+}]);
 
 
-
-// Route::get('/property', function () {
-//     return view('home');
-// });
-Route::get('profile','UserController@profile');
-Route::post('profile','UserController@updatepp');
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 
+Route::resource('/profile','UserController');
 
-
-
-Route::get('/property','PropertiesController@index')->name('property.index');
-Route::get('/property/create','PropertiesController@create') -> name('property.create');
-
-Route::post('/property','PropertiesController@store')->name("property.store");
+Route::resource('/property','PropertiesController');
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('/homeview', 'HomeviewController@index');
+
+//Route::resource('/feedback','FeedbackController');
+
+//Route::get('/feedback/index/{id}', 'FeedbackController@index');
+
+Route::resource('owner', 'OwnerController');
 
 
-Route::get('profile','UserController@profile');
-Route::post('profile','UserController@updatepp');
+
+Route::post('/search', 'SearchController@search');
+Route::get('/book/{id}', 'BookingController@index');
+
+Route::post('/book/{id}', 'BookingController@store');
+
+
+
+

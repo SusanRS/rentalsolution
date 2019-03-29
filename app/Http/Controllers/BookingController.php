@@ -3,32 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-
+use App\Property;
+use App\Booking;
 use Auth;
 
-class UserController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-   
-
-    public function index()
+    public function index($id)
     {
-        
-        $users = User::where('id', auth()->id())->get();
-       
-        return view('profile', compact('users'));
-       
-       
-       // return view('profile', array('user' => Auth::user()));
-    }
+        $property = Property::findOrFail($id)->where('id',$id)->get();
+        return view('booking.index', compact('property'));
 
-    
+         }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,9 +37,26 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+ 
+
+       request()->validate(['name' => 'required']);
+            
+
+
+       $property = Property::findOrFail($id);
+       $property->isbooked = 1;
+       $property->isavailable = 0;
+       $property->save();
+
+        $booking = new Booking();
+               
+        $booking->user_id = Auth::user()->id;
+        $booking->property_id = Property::findOrFail($id)->id;
+         $booking->save();
+        return redirect('/');
+        
     }
 
     /**
@@ -58,9 +67,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-       $userp = User::findOrFail($id);
-         return view('profile',compact('userp'));
-         }
+        //
+            
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,11 +104,4 @@ class UserController extends Controller
     {
         //
     }
-
-
-    public function __construct()
-    {
-        $this->middleware('auth');//prompt login for manual profile view
-    }
-
 }

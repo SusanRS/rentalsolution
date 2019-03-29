@@ -11,30 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script>
-        
-function show()
-{   
-  var v = document.getElementById('property').value;
-  //var divr = document.getElementById('rdiv');
-  //var divh = document.getElementById('hdiv');
-   if(v== 'Rental'){
-      //divh.style.display = "none";
-     document.getElementById('hdiv').style.display = "none";
-    document.getElementById('rdiv').style.display = 'block';
-  
-
-}
-    else if (v== 'Homestay'){
-     //divr.style.display = "none";
-    document.getElementById('rdiv').style.display = "none";
-    document.getElementById('hdiv').style.display = 'block';
-
-
-}}
-
-
-    </script>
+    
     
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
@@ -61,24 +38,7 @@ function show()
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a  class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
-                            </li>
-                    <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">{{ __('Rent') }}</a>
-                            </li>
-                    <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">{{ __('Homestay') }}</a>
-                            </li>
-                    <li class="nav-item">
-                            <a class="nav-link" href="{{ route('property.create') }}">{{ __('Post Ad') }}</a>
-                            </li>
-                     <li class="nav-item">
-                            <a class="nav-link" href="">{{ __('About Us') }}</a>
-                            </li>
-                     <li class="nav-item">
-                            <a class="nav-link" href="">{{ __('FAQ') }}</a>
-                            </li>
+                       
                    
                     </ul>
 
@@ -103,26 +63,14 @@ function show()
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
-                                   @if(auth()->user()->isowner == 1)
-                                   {{-- list 1 properties --}}
-                                    <a href="/property" class="dropdown-item fa fa-btn fa-user">{{ __('My Properties') }}</a> @endif
+                                  
                                     
-                                    
-                                    {{-- list 1 properties --}}
-                                    
-                                    {{-- <a href="/property/{{ $p->id}}/edit" class="btn btn-primary">Edit</a>  --}}
-
-                                    {{-- <a href="{{url('/profile')}}" class="dropdown-item">{{ __('Profile') }}</a> --}}
+                                  
                                     
                                     <a href="/profile/{{auth()->user()->id}}" class="dropdown-item">{{ __('Profile') }}</a>
-                                    {{-- list 2 bookigs --}}
+                                  
                                    
-                                    <a href="" class="dropdown-item">{{ __('Bookings') }}</a>
-                                    {{-- list 3 feedback --}}
-
-                                    <a href="" class="dropdown-item">{{ __('Feedback') }}</a>
-                                    {{-- list 4 logout --}}
-
+                                  
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

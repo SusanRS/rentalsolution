@@ -5,6 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Property;
+use Feedback;
+use Owner;
+
+
 
 class User extends Authenticatable
 {
@@ -40,9 +45,20 @@ class User extends Authenticatable
 
 
     public function property()
-    {
-        return $this->hasMany(Property::class);
-    }
+        {
+            return $this->hasMany(Property::class);
+        }
+
+     public function feedback()
+        {
+           return $this->hasOne(Feedback::class);
+        }
+    public function owner()
+        {
+           return $this->haOne(Owner::class);
+        }
+
+
 
 
 

@@ -3,32 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Owner;
 use App\User;
-
 use Auth;
-
-class UserController extends Controller
+class OwnerController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-   
-
     public function index()
     {
-        
-        $users = User::where('id', auth()->id())->get();
-       
-        return view('profile', compact('users'));
-       
-       
-       // return view('profile', array('user' => Auth::user()));
+       // dd('asdasd');
     }
 
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +36,47 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // dd('store');
+        request()->validate([
+            'document' => 'required'
+        ]);
+
+
+            // $user = auth()->user();
+            // $user->upgrade_req = 1;
+            // $user->save();
+           
+
+            $owner = new Owner();
+            $owner->user_id = Auth::user()->id;
+            // $owner->legalname= request('some');
+          
+            
+            if($request->hasfile('document')){
+            $file = $request->file('document');
+            $extension = $file->getClientOriginalExtension();
+
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/legals/',$filename);
+            $owner->document = $filename;
+
+             $user = auth()->user();
+            $user->upgrade_req = 1;
+            $user->save();
+
+            }else{
+           dd('asdasd');
+            }
+       
+
+
+
+
+
+            $owner->save();
+        
+            return redirect ('/');
+
     }
 
     /**
@@ -58,9 +87,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-       $userp = User::findOrFail($id);
-         return view('profile',compact('userp'));
-         }
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -95,11 +123,4 @@ class UserController extends Controller
     {
         //
     }
-
-
-    public function __construct()
-    {
-        $this->middleware('auth');//prompt login for manual profile view
-    }
-
 }

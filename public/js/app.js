@@ -49171,6 +49171,10 @@ module.exports = __webpack_require__(/*! C:\laragon\www\rentalsolution\resources
 /******/ });
 
 
-// mycustom js
-
-
+(function(){
+    $('input[type="radio"]').click(function(){
+      var demovalue = $(this).val(); 
+        $("div.myDiv").hide();
+        $("#show"+demovalue).show();
+    });
+});
