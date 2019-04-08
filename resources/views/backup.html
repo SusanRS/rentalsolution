@@ -1,3 +1,162 @@
+yo kam garne propertycontroller ho<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Property;
+use App\Homestay;
+use App\Rental;
+use App\Image;
+use Auth;
+
+class PropertyController extends Controller
+{
+    
+    public function __construct()
+    {
+        $this->middleware('auth' , ['except' => ['index','show']]);
+    }
+    public function index()
+    {
+       
+        // $property = Property::find(1);
+
+        // $buyable = $property->buyable;
+
+        // dd("$buyable");
+
+        $property = Property::where('user_id', auth()->id())->get();
+        return view('property.index',compact('property'));
+
+    }
+
+
+    public function create()
+    {
+        return view('property.create');
+    }
+
+
+    public function store(Request $request)
+    {
+       request()->validate([
+    
+            'district' => 'required',
+            'city' => 'required',
+            'ward_no' => 'required | min:1',
+            'street' => 'required',
+            'price' => 'required ',
+            'property_type' =>'required',
+            ]);
+
+
+        $property = new Property();
+
+        $property->user_id = Auth::user()->id;
+        $property->district = request('district');
+        $property->city = request('city');
+        $property->ward_no = request('ward_no');
+        $property->street= request('street');
+        $property->price = request('price');
+        $property->description = request('description');
+        $property->buyable_type = request('property_type');
+
+
+
+        if($property->buyable_type == 'Rental')
+            {
+            $rental = new Rental();
+            $rental->type = request('property_type');
+            $rental->category = request('category');
+            $rental->bhk = request('bhk');
+            $rental->num_rooms = request('num_rooms');
+            $rental->parking = request('parking');
+            
+            $rental->save();
+            $property->buyable_id = $rental->id;
+            
+            }else{
+
+            $homestay = new Homestay();
+            $homestay->type = request('property_type');
+            $homestay->service = request('service');
+            
+            $homestay->save();
+            $property->buyable_id = $homestay->id;
+            }
+
+
+            if($request->hasfile('legal_docs'))
+                {
+                    $file1 = $request->file('legal_docs');
+                    $extension1 = $file1->getClientOriginalExtension();
+                    $filename1 = rand() . '.' . $extension1;
+                    $file1->move('uploads/properties/legal',$filename1);
+                    $property->legal_docs = $filename1; 
+                }
+
+             $property->save();
+
+
+                    $array = $request->file('property_images');
+                    for($i=0; $i< count($array); $i++)
+                    {
+                    $extension = $array[$i]->getClientOriginalExtension();
+                    $filename = rand() . '.' . $extension;
+                    $array[$i]->move('uploads/properties/images',$filename);
+                    $images = new Image();
+                    $images->image = $filename;
+                    $property->image()->save($images);
+                        }
+        
+        
+     
+
+
+        session()->flash('message','property upload requested successfully');
+        
+        return redirect('/property');
+ }
+
+   
+
+    public function show($id)
+    {
+       
+        $property = Property::findOrFail($id);
+        $image = Image::where('property_id', $id)->get();
+
+        $buyable = $property->buyable;
+        
+        return view('property.viewproperty',compact('property','buyable','image'));
+
+
+    }
+
+   
+
+    public function edit($id)
+    {
+       
+    }
+
+ 
+
+    public function update(Request $request, $id)
+    {
+        
+        }
+
+   
+
+    public function destroy($id)
+    {
+        
+    }
+}
+
+
+
 -------------------------------create.blade.php-----------------------------------
 
 

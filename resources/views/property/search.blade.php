@@ -2,12 +2,11 @@
 
 @section('content')
 
-<div class="col-md-12" style="margin:30px">
+<div class="col-md-12 mt-3 ml-auto">
                 <form method="post" action="/search">
                   @csrf
                   <div class="row">
-                 {{-- <input type="text" name="district" value="" placeholder="district" autofocus> --}}
-                      <select name="district">
+                          <select name="district">
                        @include('welcome')   
                       </select>
                       

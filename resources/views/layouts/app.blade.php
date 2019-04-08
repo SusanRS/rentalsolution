@@ -11,47 +11,62 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script>
-        
-function show()
-{   
-  var v = document.getElementById('property').value;
-  //var divr = document.getElementById('rdiv');
-  //var divh = document.getElementById('hdiv');
-   if(v== 'Rental'){
-      //divh.style.display = "none";
-     document.getElementById('hdiv').style.display = "none";
-    document.getElementById('rdiv').style.display = 'block';
-  
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    
+    
+     <script>
+        setTimeout(function()
+        {
+            $('#alerts').fadeOut('slow');
+        }, 3000);
 
-}
-    else if (v== 'Homestay'){
-     //divr.style.display = "none";
-    document.getElementById('rdiv').style.display = "none";
-    document.getElementById('hdiv').style.display = 'block';
+        function show()
+        {   
+          var v = document.getElementById('change_property').value;
+          //var divr = document.getElementById('rdiv');
+          //var divh = document.getElementById('hdiv');
+           if(v== 'Rental'){
+              //divh.style.display = "none";
+            document.getElementById('div_homestay').style.display = "none";
+            document.getElementById('div_rental').style.display = 'block';
+            }
+            else if (v== 'Homestay'){
+             //divr.style.display = "none";
+            document.getElementById('div_rental').style.display = "none";
+            document.getElementById('div_homestay').style.display = 'block';
+            }
+            else
+            {
+                document.getElementById('div_homestay').style.display = 'none'
+                document.getElementById('div_rental').style.display = 'none'
+            }
+        }
 
-
-}}
-
+     
 
     </script>
+    
+
     
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   
 
 
     <!-- Fonts -->
+
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  
 </head>
-<body>
+<body style="background-color:#e8ecf2 ">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel ">
+        <nav style="background-color:#1c1513;"class="navbar navbar-expand-md navbar-dark bg navbar-laravel ">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                
+                <a class="navbar-brand" style="padding-left:20px;" href="{{ url('/') }}"><i class="fa fa-home" style=" ;position:; color:white"></i>
                     {{ config('app.name') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -104,32 +119,22 @@ function show()
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
                                    @if(auth()->user()->isowner == 1)
-                                   {{-- list 1 properties --}}
-                                    <a href="/property" class="dropdown-item fa fa-btn fa-user">{{ __('My Properties') }}</a> @endif
-                                    
-                                    
-                                    {{-- list 1 properties --}}
-                                    
-                                    {{-- <a href="/property/{{ $p->id}}/edit" class="btn btn-primary">Edit</a>  --}}
+                                     <i class="fa fa-building" style="padding:8px ;position:absolute;"></i>
 
-                                    {{-- <a href="{{url('/profile')}}" class="dropdown-item">{{ __('Profile') }}</a> --}}
+                                    <a href="/property" class="dropdown-item ">{{ __('My Properties') }}</a> @endif
+                                    <i class="fa fa-user" style="padding:8px ;position:absolute;"></i>
+                                    <a href="/profile/{{auth()->user()->id}}" class="dropdown-item ">  {{ __('Profile') }}</a>
                                     
-                                    <a href="/profile/{{auth()->user()->id}}" class="dropdown-item">{{ __('Profile') }}</a>
-                                    {{-- list 2 bookigs --}}
-                                   
-                                    <a href="" class="dropdown-item">{{ __('Bookings') }}</a>
-                                    {{-- list 3 feedback --}}
+                                    <i class="fa fa-shopping-cart" style="padding:7px ;position:absolute;"></i>
 
+                                    <a href="/booking" class="dropdown-item">{{ __('Bookings') }}</a>
+                                    
+
+                                    <i class="fa fa-comments" style="padding:7px; position:absolute;"></i>
                                     <a href="" class="dropdown-item">{{ __('Feedback') }}</a>
-                                    {{-- list 4 logout --}}
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-
+                                    
+                                    <i class="fa fa-bed" style="padding:7px ;position:absolute;"></i>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -144,17 +149,22 @@ function show()
 
          
 @if($flash = session('message'))
-<div class="alert alert-success" role  ="alert">
+<div id="alerts" style="display:hidden" class="alert alert-success" >
+{{ $flash }} 
+</div>
 
-    {{ $flash }}
-    
+
+
+@elseif($flash = session('abort'))
+<div id="alerts" style="display:hidden" class="alert alert-danger" >
+{{ $flash }} 
 </div>
 
 @endif
-         <main>
-            @yield('content')
-        </main>
+    <main style="background-color: ;">
+    @yield('content')
+    </main>
 
-    </div>
+</div>
 </body>
 </html>

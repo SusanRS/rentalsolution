@@ -1,0 +1,164 @@
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+}
+
+
+#alerts{
+ 
+position:absolute;
+
+margin-left:60vw;
+
+}
+#footer{
+ 
+  margin:0;
+  overflow:hidden;
+  transition:1s;
+}
+
+#gmap
+{
+  height:100px;width:150px;
+
+  transition: 1s;
+
+}
+
+
+.search-btn
+{
+ 
+ position:fixed;
+}
+
+#search-bar-collapsible
+{
+  height:200px;
+  width:200px;
+  background-color: black;
+}
+
+
+#div_rental {  
+  /* This section calls the slideInFromLeft animation we defined above */
+  animation: 1s ease-in 0s 1 slideInFromLeft;
+  
+}
+#div_homestay {  
+  /* This section calls the slideInFromLeft animation we defined above */
+  animation: 1s ease-in 0s 1 slideInFromLeft;
+  
+}
+
+.premium_div{
+  text-decoration:none;
+  color:black;
+}
+.premium_div:hover{
+  color : black;
+
+}
+
+#premium_rental:hover
+{ box-shadow: 0 8px 16px 0 #62f7dc, 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+#premium_rental
+
+{
+  width: 16rem;
+  height:22rem;
+  float:left;
+  margin-left:2px;
+
+ }
+
+
+/*
+#search_bar{
+  position: relative;
+ top:30%;
+ left:-20%;
+ width:471px;
+ height:40px;
+ padding:5px;
+ 
+
+ text-align:center;
+ background-color: #1e1e1e;
+}
+
+
+#search_bar input
+{
+  padding:3px;
+  width:100px;
+  color:white;
+  border:none;
+  background:#1e1e1e;
+  outline:none;
+}
+*/
+
+
+/*
+@extends('layouts.app')
+
+@section('content')
+<div class="container-fluid" >
+ 
+  
+    {{--  <div class="row">
+      <div class="col-md-10 col-sm-8" >
+      
+      <form method="post" action="/search">
+        @csrf
+        
+          <select name="district">
+            @include('welcome') @if($_POST['district'] =='ilam') { selected="true"}@endif  
+          </select>
+                      
+          <select name="price" autofocus>
+            <option value="99999999"></option>
+            <option value="5000" @if($_POST['price'] =='5000') { selected="true"}@endif>5000</option>
+            <option value="10000" @if($_POST['price'] =='10000') { selected="true"}@endif>10000</option>
+            <option value="15000" @if($_POST['price'] =='15000') { selected="true"}@endif>15000</option>
+          </select>
+
+          <select name="propertytype">
+            <option value="Rental"@if($_POST['propertytype'] =='Rental') { selected="true"}@endif>Rental</option>
+            <option value="Homestay" @if($_POST['propertytype'] =='Homestay') { selected="true"}@endif>Homestay</option>
+          </select>
+          
+          <button type="submit" class="btn btn-danger">search</button>
+      </form></div>
+    </div>
+  </div> --}}
+    <div class="container">
+      @foreach($property as  $p)
+        <div class="card px-3 py-3 mr-3 mt-3" style="width:345px; float:left">
+          <div class="img" style="height:100px;width:100px;"></div>
+            id: {{$p->id}}<br>
+            price: {{$p->price}}<br>
+            city: {{$p->city}}<br>
+            district: {{$p->district}}<br>
+            <a href="{{ url('property/'.$p->id) }}" class="btn btn-primary">Details</a>
+        </div>
+      @endforeach
+    </div>
+
+    <div class="sidebars " style="">
+      somethings
+    </div>
+
+
+
+
+      </div>
+@endsection

@@ -43,20 +43,16 @@ class User extends Authenticatable
     ];
 
 
-
-    public function property()
-        {
-            return $this->hasMany(Property::class);
-        }
-
-     public function feedback()
-        {
-           return $this->hasOne(Feedback::class);
-        }
     public function owner()
         {
-           return $this->haOne(Owner::class);
+           return $this->hasOne(Owner::class);
         }
+
+    public function report()
+            {
+               return $this->hasOne(Report::class);
+            }
+
 
 
 

@@ -42,22 +42,18 @@ class OwnerController extends Controller
         ]);
 
 
-            // $user = auth()->user();
-            // $user->upgrade_req = 1;
-            // $user->save();
+           
            
 
             $owner = new Owner();
             $owner->user_id = Auth::user()->id;
-            // $owner->legalname= request('some');
-          
-            
+
             if($request->hasfile('document')){
             $file = $request->file('document');
             $extension = $file->getClientOriginalExtension();
 
             $filename = time() . '.' . $extension;
-            $file->move('uploads/legals/',$filename);
+            $file->move('uploads/ownerdocuments/',$filename);
             $owner->document = $filename;
 
              $user = auth()->user();
@@ -67,12 +63,6 @@ class OwnerController extends Controller
             }else{
            dd('asdasd');
             }
-       
-
-
-
-
-
             $owner->save();
         
             return redirect ('/');

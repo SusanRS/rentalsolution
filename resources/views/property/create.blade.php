@@ -8,15 +8,36 @@
     @if(auth()->user()->upgrade_req!=1)
 
         
-        <div class="jumbotron">
+        <div class ="container alert alert-primary" role="alert">
         <h1>OOPS! Are you a Owner.</h1>
         <hr>
-        {{-- <a href="/profile/">Upgrade your account</a> --}}
-        <a  href="/profile/{{auth()->user()->id}}">Upgrade your account</a>            
+        <a  class="btn btn-success" href="/profile/{{auth()->user()->id}}">Upgrade your account</a>            
         </div>
 
         @else
-        <h3 class="jumbotron">please wait for confirmaton</h1>
+        
+
+
+        <div class="container alert alert-success" role="alert">
+            <img style="height:100px;width:100px" class="rounded float-left" src="/images/icon.png" alt="">
+            <h2 class="alert-heading">Well done!</h2>
+
+            <p>Aww yeah, you successfully submitted to upgrade your account. This wont take much longer so please wait paiently.</p>
+            <hr>
+            <p class="mt-0">You can still view other properties whenever you want !!</p>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
         @endif
 @else
 <section>
@@ -39,7 +60,7 @@
                        
                     
                     </div>   @endif
-                    <form form method="POST" action="{{ route('property.store') }}">
+                    <form enctype="multipart/form-data" method="POST" action="{{ route('property.store') }}">
                         @csrf
                         
 
@@ -48,13 +69,14 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group mb-1">
                                     <label for="property_type">Property Type</label>
-                        
-                                    <select id="property"  onchange="show()" autofocus class="form-control" name = "property_type" required>   
-                                        <option   value = "">select an option</option>       
+
+                                    <select id="change_property"  onchange="show()" autofocus class="form-control" name = "property_type" required>   
+                                        <option   value = "1">select an option</option>       
                                         <option  value = "Rental">Rental</option>       
-                                        <option class="form-control" value = "Homestay" @if(old('property')=='property_type'){{'selected'}} @endif>Homestay</option> 
-                                       
-                                    </select> 
+                                        <option value = "Homestay">Homestay</option> 
+                                    </select>
+                                    
+                                    {{-- <input type="text" class="form-control" name="property_type" value="" placeholder=""> --}}
                                 </div>
                             </div>
 
@@ -84,7 +106,7 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group mb-1">
                                     <label for="district">{{ __('District') }}</label>
-                                    {{-- <input id="district" type="text" class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" name="" value="{{ old('district') }}" required autofocus> --}}
+                                   
                                     <select autofocus class="form-control{{ $errors->has('district') ? ' is-invalid' : '' }}" name = "district" required autofocus >
                                         @include('welcome')
                                     </select>      
@@ -131,11 +153,11 @@
           {{--        this is for street name         --}}               
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group mb-1">
-                                    <label for="street_address">{{ __('Street') }}</label>
-                                    <input id="street_address" type="text" class="form-control{{ $errors->has('street_address') ? ' is-invalid' : '' }}" name="street_address" value="{{ old('street_address') }}" required autofocus>
-                                    @if ($errors->has('street_address'))
+                                    <label for="street">{{ __('Street') }}</label>
+                                    <input id="street" type="text" class="form-control{{ $errors->has('street') ? ' is-invalid' : '' }}" name="street" value="{{ old('street') }}" required autofocus>
+                                    @if ($errors->has('street'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('street_address') }}</strong>
+                                            <strong>{{ $errors->first('street') }}</strong>
                                         </span>
                                         @endif
                                 </div>
@@ -146,99 +168,113 @@
 
                         <hr>
    
+        
    <!-------------- this is for rental ------------------->                     
                       
-                        <div id="rdiv" class="hide" style="display:none;transition: 1s;">
-                            <div class="row">
-                                
-                                   
+                        <div id="div_rental" class="hidden" style="display:none">
+                            
+                                         
 
-{{-- rental type --}}
+{{-- rental type --}}                             
+            
+             
+             
+             
+      
+
+                            <div class="row">
+{{-- category --}}
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group mb-1">
-                                        <label for="rental_type">{{ __('Rental type*') }}</label>
-                                   
-                                        <select autofocus class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}" name = "type" autofocus >   
-                                        <option value = "">select</option>
-                                        <option value = "Flats & Apartment">Flats & Apartment</option>       
-                                        <option value = "House" >Houses</option>       
-                                        <option value = "Rooms">Rooms</option>       
-                                        <option value = "Shutters & commercials">Shutters & commercials spaces</option>       
+                                        <label for="rental_type">{{ __('category') }}</label>
+                                            <select autofocus class="form-control{{ $errors->has('rental_type') ? ' is-invalid' : '' }}" name = "rental_type" autofocus >   
+                                                <option value = "">select</option>
+                                                <option value = "Flats & Apartment">Flats & Apartment</option>       
+                                                <option value = "House" >Houses</option>       
+                                                <option value = "Rooms">Rooms</option>       
+                                                <option value = "Shutters & commercials">Shutters & commercials spaces</option>       
+                                            </select>
+                                    </div>
+                                </div>
+{{-- bhk --}}
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group mb-1">
+                                        <label for="bhk">{{ __('BHK') }}</label>
+                                        <select autofocus class="form-control{{ $errors->has('bhk') ? ' is-invalid' : '' }}" name = "bhk" autofocus >   
+                                            <option value = "">select</option>
+                                            <option value = "BHK" @if(old('bhk')=='BHK'){{'selected'}} @endif>BHK</option>       
+                                            <option value = "2-BHK" @if(old('bhk')=='2-BHK'){{'selected'}} @endif>2-BHK</option>       
+                                            <option value = "3-BHK" @if(old('bhk')=='3-BHK'){{'selected'}} @endif>3-BHK</option>       
+                                            <option value = "4-BHK" @if(old('bhk')=='4-BHK'){{'selected'}} @endif>4-BHK</option>       
+                                            <option value = "5-BHK" @if(old('bhk')=='5-BHK'){{'selected'}} @endif>5-BHK</option>       
                                         </select>
                                     </div>
                                 </div>
+                            </div>
 
-                                   
-                                 
-
-                                
- {{-- no of room                                --}}
+                            <div class="row">
+ {{-- no of room--}}
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group mb-1">
                                         <label for="room">{{ __('Number of rooms') }}</label>
                                         <input id="room" type="number" min="1" class="form-control{{ $errors->has('room') ? ' is-invalid' : '' }}" name="num_rooms" value="{{ old('room') }}" >
-                                        
                                     </div>
-                                </div> 
-
-                                <div class="col-md-6 col-sm-6">
-                                    <div class="form-group mb-1">
-                                        <label for="bhk">{{ __('BHK') }}</label>
-                                   
-                                        <select autofocus class="form-control{{ $errors->has('bhk') ? ' is-invalid' : '' }}" name = "bhk" autofocus >   
-                                        <option value = "">select</option>
-                                        <option value = "BHK" @if(old('bhk')=='BHK'){{'selected'}} @endif>BHK</option>       
-                                        <option value = "2-BHK" @if(old('bhk')=='2-BHK'){{'selected'}} @endif>2-BHK</option>       
-                                        <option value = "3-BHK" @if(old('bhk')=='3-BHK'){{'selected'}} @endif>3-BHK</option>       
-                                        <option value = "4-BHK" @if(old('bhk')=='4-BHK'){{'selected'}} @endif>4-BHK</option>       
-                                        <option value = "5-BHK" @if(old('bhk')=='5-BHK'){{'selected'}} @endif>5-BHK</option>       
-                                        </select>
-                                    </div>
-
                                 </div>
-                                
+{{-- parking --}}
                                 <div class="col-md-6 col-sm-6">
                                      <div class="form-group mb-1">
                                         <label for="parking">{{ __('Parking facility') }}</label><br>
-                                        <input type="radio" name="parking" value="yes" placeholder="">Yes <br>
-                                        <input type="radio" name="parking" value="No" placeholder="">No
+                                            <input type="radio" name="parking" value="1" placeholder="">Yes <br>
+                                            <input type="radio" name="parking" value="0" placeholder="">No
                                     </div>
                                 </div>
-                                
                             </div>
+
                         </div>
                             
-                            
-                        
-<!--- this is for homestays -->  
-                        
-                        <div id="hdiv" class="hide" style="display:none;">
-                            <h4>for pg</h4>
-                            <div class="row">
-
-
-                                        <div class="col-md-6 col-sm-6">
-                                        <div class="form-group mb-1">
-                                        <label for="home">{{ __('home') }}</label>
-                                        <input id="home" type="type" class="form-control{{ $errors->has('home') ? ' is-invalid' : '' }}" name="home" value="{{ old('home') }}" >
-
-                                    
-                                        </div>
+{{-- homestay     --}}<div id="div_homestay" class="hide" style="transition: 1s;display:none;">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                    <div class="form-group mb-1">
+                                        <label for="capacity">{{ __('guest capacity') }}</label>
+                                        <input id="capacity" type="number" min="1" class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}" name="capacity" value="{{ old('capacity') }}" >
+                                        
                                     </div>
-                                <div class="col-md-6 col-sm-6">type</div>
-                                <div class="col-md-6 col-sm-6">no of guests</div>
-                                <div class="col-md-6 col-sm-6">detours</div>
-                            </div>
-                        </div>
 
-    <!--- this is for DESCRIPTION -->                       
-                        <hr>
-                        
+                                    <div class="form-group mb-1">
+                                        <label for="service">{{ __('guest service') }}</label>
+                                        <input id="service" type="text" class="form-control{{ $errors->has('service') ? ' is-invalid' : '' }}" name="service" value="{{ old('service') }}" >
+                                        
+                                    </div>
+                                    
+
+                                    <div class="form-group mb-1">
+                                        <label for="category">{{ __('category') }}</label>
+                                        <input id="category" type="text" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" name="category" value="{{ old('category') }}" >
+                                        
+                                    </div>
+                            </div> 
+                        </div>
+ </div>
+                            <div class="col-md-6 col-sm-6">
+                              
+                                <input type="file" class="file-input"  name="legal_docs">
+                                    
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <label>image for property</label>
+                                 <input type="file" class="file-input"  name="property_images[]" multiple>
+                            </div>
+
+                     
+     
+
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group mb-1">
                                     <label for="descriptions">{{ __('Additional Property Descriptions') }}</label>
-                                    <textarea name="descriptions"class="form-control{{ $errors->has('descriptions') ? ' is-invalid' : '' }}" value="{{ old('descriptions') }}" required>{{ old('descriptions') }}</textarea>
+                                    <textarea name="description"class="form-control{{ $errors->has('descriptions') ? ' is-invalid' : '' }}" value="{{ old('descriptions') }}" required>{{ old('descriptions') }}</textarea>
                                 
                                     @if ($errors->has('descriptions'))
                                         <span class="invalid-feedback" role="alert">
@@ -248,7 +284,7 @@
                                 </div>
                             </div>
                         </div>
-                    
+
 
                         <div class="mt-1">
                             <button type="submit" class="btn btn-primary">{{ __('Request') }}</button>
@@ -261,24 +297,7 @@
             </div>
             <div class="col-md-4 col-sm-4">
                 <aside>
-                    <div class="premiums" >
-                        <div class="rentals py-4" style="overflow-y:auto; height: ;">
-                            <h4>FEATURED:</h4>
-                            @foreach($premiums as $premium)
-                              
-                                 <div style=" text-align:center;width:140px;float:left">
-                                  {{$premium['price']}} <br>
-                                  {{$premium['property_type']}} <br>
-                                  {{$premium['id']}} <br>
-                                  {{$premium['district']}} <br>
-                                  <a href="{{ url('property/'.$premium->id) }}" class="btn btn-danger">view</a>
-                               </div>
-                              
-                            @endforeach
-                        </div>
-                       
-
-                    </div>
+                    this is side barfir featured property
                 </aside>
             </div>
         </div><!--close main row -->

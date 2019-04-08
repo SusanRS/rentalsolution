@@ -17,8 +17,7 @@ class CreateOwnersTable extends Migration
             $table->Increments('id');
             $table->unsignedinteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('legalname');
-            $table->boolean('upgrade_request')->default(0);
+            $table->string('document');
             $table->timestamps();
         });
     }

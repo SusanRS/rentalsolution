@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Property;
+use App\Rental;
 use App\Booking;
 use Auth;
 
@@ -14,22 +15,24 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $property = Property::findOrFail($id)->where('id',$id)->get();
-        return view('booking.index', compact('property'));
-
-         }
+         $booking = Booking::where('user_id',Auth::user()->id)->get();
+        return view('booking.index', compact('booking'));
+        
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
-    }
+$property = Property::findOrFail($id);
+        return view('booking.bookingform', compact('property'));
+        
+ }
 
     /**
      * Store a newly created resource in storage.
@@ -37,26 +40,21 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request,$id)
     {
- 
+        //dd('book');
+        $property = Property::findOrFail($id);
 
-       request()->validate(['name' => 'required']);
-            
-
-
-       $property = Property::findOrFail($id);
-       $property->isbooked = 1;
-       $property->isavailable = 0;
-       $property->save();
+        $property->isbooked = 1;
+        
+        $property->save();
 
         $booking = new Booking();
-               
         $booking->user_id = Auth::user()->id;
-        $booking->property_id = Property::findOrFail($id)->id;
-         $booking->save();
-        return redirect('/');
-        
+
+        $property->booking()->save($booking);
+        // return view('booking.index');
+        return redirect('booking');
     }
 
     /**
@@ -67,8 +65,7 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
-            
+        
     }
 
     /**

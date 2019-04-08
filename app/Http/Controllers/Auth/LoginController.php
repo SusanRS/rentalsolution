@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-   protected $redirectTo = '/admin/admindash';
+   protected $redirectTo = '/home';
 
     // public function redirectTo(){
     //     //user type

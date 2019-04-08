@@ -11,39 +11,34 @@
 |
 */
 
-
-Route::get('/admin/admindash', ['middleware' => 'admin' , function () {
-    return view('admin.admindash');
-}]);
+Route::get('/admin', function()
+{
+	return view('admin.admindash');
+});
 
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
-
+//route to user profile
 Route::resource('/profile','UserController');
 
-Route::resource('/property','PropertiesController');
-
-
+//authoriaztions routes
 Auth::routes();
 
-
-//Route::get('/homeview', 'HomeviewController@index');
-
-//Route::resource('/feedback','FeedbackController');
-
-//Route::get('/feedback/index/{id}', 'FeedbackController@index');
-
+//route for owner
 Route::resource('owner', 'OwnerController');
 
 
+Route::resource('property', 'PropertyController');
+Route::resource('/image', 'ImageController');
+Route::post('/report/{id}', 'ReportController@store');
+//Route::resource('/report/{id}', 'ReportController');
 
-Route::post('/search', 'SearchController@search');
-Route::get('/book/{id}', 'BookingController@index');
-
+Route::get('property/{id}/book', 'BookingController@create');
 Route::post('/book/{id}', 'BookingController@store');
 
+Route::resource('booking', 'BookingController');
 
 
 
