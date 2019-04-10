@@ -42,3 +42,11 @@ Route::resource('booking', 'BookingController');
 
 
 
+Route::post('/search', 'SearchController@search');
+Route::post('/search-rental', 'SearchController@search_rental');
+Route::post('/search-homestay', 'SearchController@search_homestay');
+Route::get('/rentals', 'SearchController@rentals');
+Route::get('/homestays', 'SearchController@homestays');
+
+
+

@@ -17,9 +17,15 @@ class HomeController extends Controller
             ['type','=','Rental'],]
         )->orderBy('updated_at', 'desc')->take(10)->get();
         
+ 		$homestays = Property::where([
+            ['isapproved','=', 1],
+            ['isavailable', '=', 1],
+            ['type','=','Homestay'],]
+        )->orderBy('updated_at', 'desc')->take(10)->get();
+        
 
         
-        return view('home',compact('properties'));
+        return view('home',compact('properties','homestays'));
     }
 
 

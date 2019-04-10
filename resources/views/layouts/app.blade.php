@@ -12,37 +12,12 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+ 
+    <script src="{{ asset('js/customscript.js') }}" defer></script>
     
     
      <script>
-        setTimeout(function()
-        {
-            $('#alerts').fadeOut('slow');
-        }, 3000);
-
-        function show()
-        {   
-          var v = document.getElementById('change_property').value;
-          //var divr = document.getElementById('rdiv');
-          //var divh = document.getElementById('hdiv');
-           if(v== 'Rental'){
-              //divh.style.display = "none";
-            document.getElementById('div_homestay').style.display = "none";
-            document.getElementById('div_rental').style.display = 'block';
-            }
-            else if (v== 'Homestay'){
-             //divr.style.display = "none";
-            document.getElementById('div_rental').style.display = "none";
-            document.getElementById('div_homestay').style.display = 'block';
-            }
-            else
-            {
-                document.getElementById('div_homestay').style.display = 'none'
-                document.getElementById('div_rental').style.display = 'none'
-            }
-        }
-
-     
+       
 
     </script>
     
@@ -61,7 +36,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   
 </head>
-<body style="background-color:#e8ecf2 ">
+<body style="background-color:#deecf9 ">
     <div id="app">
         <nav style="background-color:#1c1513;"class="navbar navbar-expand-md navbar-dark bg navbar-laravel ">
             <div class="container-fluid">
@@ -80,10 +55,10 @@
                             <a  class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                             </li>
                     <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">{{ __('Rent') }}</a>
+                            <a class="nav-link " href="{{ url('/rentals') }}">{{ __('Rent') }}</a>
                             </li>
                     <li class="nav-item">
-                            <a class="nav-link " href="{{ url('/') }}">{{ __('Homestay') }}</a>
+                            <a class="nav-link " href="{{ url('/homestays') }}">{{ __('Homestay') }}</a>
                             </li>
                     <li class="nav-item">
                             <a class="nav-link" href="{{ route('property.create') }}">{{ __('Post Ad') }}</a>
@@ -149,14 +124,14 @@
 
          
 @if($flash = session('message'))
-<div id="alerts" style="display:hidden" class="alert alert-success" >
+<div id="alerts" class="alert alert-success" >
 {{ $flash }} 
 </div>
 
 
 
 @elseif($flash = session('abort'))
-<div id="alerts" style="display:hidden" class="alert alert-danger" >
+<div id="alerts" class="alert alert-danger" >
 {{ $flash }} 
 </div>
 

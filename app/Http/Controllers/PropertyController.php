@@ -42,8 +42,9 @@ class PropertyController extends Controller
             'street' => 'required',
             'price' => 'required ',
             'property_type' =>'required',
+            'legal_docs' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             ]);
-
+       
 //property instance 11 
         $property = new Property();
 
@@ -108,11 +109,18 @@ class PropertyController extends Controller
     public function show($id)//this opens a view page for clicked property
                              //and its descriptions 
     {
-       
+        $homestay = Property::where([
+            ['isavailable', '=', 1],
+            ['type', '=', 'Homestay'],
+        ])->take(10)->get();
+        $rental = Property::where([
+                        ['isavailable', '=', 1],
+            ['type', '=', 'Rental'],
+        ])->take(2)->get();
         $property = Property::findOrFail($id);
         $image = Image::where('property_id', $id)->get();
         
-        return view('property.viewproperty',compact('property','image'));
+        return view('property.viewproperty',compact('property','image','rental','homestay'));
 
 
     }
